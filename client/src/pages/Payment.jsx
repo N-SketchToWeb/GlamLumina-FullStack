@@ -8,6 +8,7 @@ const Payment = () => {
   const [paymentUrl, setPaymentUrl] = useState(null);
   const BASE_URL = import.meta.env.VITE_URL; // ✅ Use env variable
 
+  console.log("Base URL:", BASE_URL);
 
   const handlePayment = async () => {
     
