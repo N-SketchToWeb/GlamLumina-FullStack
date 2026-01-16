@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import API from "../api/api";
 import { useNavigate } from 'react-router-dom';
 import Title from '../components/Title';
 import CartTotal from '../components/CartTotal';
@@ -8,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
     const navigate = useNavigate();
-    const { cartItems, setCartItems, getCartAmount, addOrder } = useContext(ShopContext);
+    const { cartItems, setCartItems, getCartAmount, addOrder, user } = useContext(ShopContext);
     const [method, setMethod] = useState('');
     const totalAmount = getCartAmount();
 
@@ -32,32 +33,42 @@ const PlaceOrder = () => {
         }));
     };
 
-    const handlePlaceOrder = (e) => {
-        e.preventDefault();
+const handlePlaceOrder = async (e) => {
+  e.preventDefault();
 
-        if (Object.keys(cartItems).length === 0) {
-            alert('Your cart is empty!');
-            return;
-        }
+  if (!user) {
+        toast.error("Please login first!");
+        return;
+    }
 
-        const newOrder = {
-            _id: Date.now(),
-            items: Object.entries(cartItems).map(([id, quantity]) => ({
-                _id: id,
-                name: `Product ${id}`,
-                quantity,
-            })),
-            totalAmount,
-            paymentMethod: method,
-            deliveryDetails: formDetails,
-            date: new Date().toString(),
-        };
+  if (Object.keys(cartItems).length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
 
-        addOrder(newOrder);
-        setCartItems({});
-        toast.success('Navigating to order details!',{autoClose :2000} );
-        navigate('/orders');
-    };
+  const orderPayload = {
+    username: user.name, // make sure user exists in context
+    totalAmount:  getCartAmount(),
+    modeOfPayment: method,
+    items: Object.entries(cartItems).map(([productId, quantity]) => ({
+      productId: Number(productId),
+      quantity: quantity
+    }))
+  };
+
+  try {
+    const res = await API.post("/orders/create", orderPayload);
+    console.log("Order saved in DB", res.data);
+
+    setCartItems({});
+    toast.success("Order placed successfully!", { autoClose: 2000 });
+    navigate("/myorders"); // or wherever
+  } catch (error) {
+    console.error("Order Save Failed", error);
+    toast.error("Order failed!");
+  }
+};
+
 
     return (
         <div>

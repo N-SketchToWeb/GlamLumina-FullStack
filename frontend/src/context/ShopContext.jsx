@@ -86,9 +86,7 @@ const ShopContextProvider = (props) => {
     };
 
     //Order list display
-    const addOrder = (order) => {
-        setOrders((prevOrders) => [...prevOrders, order]);
-    };
+
 
 
     useEffect(() => {
@@ -113,7 +111,7 @@ const ShopContextProvider = (props) => {
         navigate('/');
     };
 
-    const value = {logout,login,orders,addOrder, user, setUser, currency, delivery_charges, navigate, products, token, setToken, search, setSearch, showSearch, setShowSearch,
+    const value = {logout,login, user, setUser, currency, delivery_charges, navigate, products, token, setToken, search, setSearch, showSearch, setShowSearch,
         addToCart, getCartCount, cartItems, setCartItems, updateQuantity, getCartAmount,addToFavorites, getFavoritesCount, favorites, removeFromFavorites, handleRemoveFromFavorites };
 
     return (

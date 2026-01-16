@@ -1,3 +1,4 @@
+import API from "../api/api";
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -21,12 +22,31 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+      try {
+    await API.post("/contact/send", {
+      username: formData.username,
+      email: formData.email,
+      message: formData.message,
+    });
+
     toast.success("Your message has been sent successfully!");
     setTimeout(() => {
       navigate('/');
     }, 1000);
+
+     setFormData({
+      username: "",
+      email: "",
+      message: "",
+    });
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to send message. Try again.");
+  }
   };
 
   return (
