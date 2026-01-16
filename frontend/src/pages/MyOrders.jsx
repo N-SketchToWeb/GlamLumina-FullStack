@@ -16,10 +16,14 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        if (!user?.name) return;
+        if (!user?.name) {
+          setOrders([]);
+          setLoading(false);
+          return;
+        }
 
         const res = await API.get(`/orders/user/${user.name}`);
-        setOrders(res.data);
+        setOrders(res.data || []);
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {

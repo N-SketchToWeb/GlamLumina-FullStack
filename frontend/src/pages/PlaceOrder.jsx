@@ -57,7 +57,7 @@ const handlePlaceOrder = async (e) => {
   };
 
   try {
-    const res = await API.post("/orders/create", orderPayload);
+    const res = await API.post("/orders", orderPayload);
     console.log("Order saved in DB", res.data);
 
     setCartItems({});
