@@ -14,11 +14,12 @@ public class OrdersController {
     @Autowired
     private OrdersRepository orderRepository;
 
-    // Get orders by username
-    @GetMapping("/user/{username}")
-    public List<Orders> getOrdersByUser(@PathVariable String username) {
-        return orderRepository.findByUsername(username);
-    }
+   // Get all orders
+@GetMapping
+public List<Orders> getAllOrders() {
+    return orderRepository.findAll();
+}
+
 
     // Save new order
     @PostMapping("/create")
