@@ -1,5 +1,5 @@
 # Stage 1: Build the Spring Boot app
-FROM maven:3.9.5-jdk-19 AS build
+FROM maven:3.9.0-eclipse-temurin-19 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
