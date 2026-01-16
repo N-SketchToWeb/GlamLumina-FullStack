@@ -8,7 +8,7 @@ import com.example.glamlumina.repository.ContactRepository;
 
 @RestController
 @RequestMapping("/api/contact")
-@CrossOrigin(origins = "*")
+
 public class ContactController {
 
     @Autowired

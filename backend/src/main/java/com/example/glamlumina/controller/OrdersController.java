@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/orders")
 // Allow local React dev server and any other origin for production
-@CrossOrigin(origins = {"http://localhost:5173", "*"})
+
 public class OrdersController {
 
     @Autowired
