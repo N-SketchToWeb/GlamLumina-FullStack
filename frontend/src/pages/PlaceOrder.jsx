@@ -62,7 +62,7 @@ const handlePlaceOrder = async (e) => {
 
     setCartItems({});
     toast.success("Order placed successfully!", { autoClose: 2000 });
-    navigate("/myorders"); // or wherever
+    navigate("/my-orders"); // or wherever
   } catch (error) {
     console.error("Order Save Failed", error);
     toast.error("Order failed!");

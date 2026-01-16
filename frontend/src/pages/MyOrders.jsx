@@ -44,22 +44,22 @@ const MyOrders = () => {
         ) : orders.length > 0 ? (
           orders.map((order) => (
             <div
-              key={order.orderId}
+              key={order.id}
               className="bg-white p-6 rounded-lg shadow-md border border-gray-200 mb-8"
             >
               <h3 className="text-lg font-semibold mb-2">
-                Order ID: {order.orderId}
+                Order ID: {order.id}
               </h3>
               <p className="text-gray-600 mb-2">Total: ₹{order.totalAmount}</p>
               <p className="text-gray-600 mb-4">Payment: {order.modeOfPayment}</p>
 
               <h4 className="text-md font-medium mb-2">Order Items:</h4>
-              <ul>
+              <ul>               
                 {order.items?.map((item) => {
                   const product = getProductDetails(item.productId); // <-- Corrected
                   return (
                     <li
-                      key={item.id} // <-- Corrected
+                      key={`${order.id}-${item.productId}`}
                       className="flex items-center mb-4 border-b pb-4"
                     >
                       {product?.image && (
