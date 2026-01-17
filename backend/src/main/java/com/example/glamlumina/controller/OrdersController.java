@@ -33,7 +33,7 @@ public class OrdersController {
     public Orders createOrder(@RequestBody Orders order) {
         // Ensure each OrderItem points back to parent order
         if (order.getItems() != null) {
-            order.getItems().forEach(item -> item.setOrder(order));
+                          order.getItems().forEach(item -> item.setOrder(order));
         }
         return orderRepository.save(order);
     }
